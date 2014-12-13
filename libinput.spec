@@ -1,11 +1,11 @@
 Summary:	Generic input device handling library
 Name:		libinput
-Version:	0.6.0
+Version:	0.7.0
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://www.freedesktop.org/software/libinput/%{name}-%{version}.tar.xz
-# Source0-md5:	3afaf9f66d8796323a79edb879c10ba3
+# Source0-md5:	381b61396de28c12716ef7a5475fea50
 URL:		http://www.freedesktop.org/wiki/Software/libinput/
 BuildRequires:	autoconf
 BuildRequires:	automake
