@@ -1,11 +1,11 @@
 Summary:	Generic input device handling library
 Name:		libinput
-Version:	0.10.0
+Version:	0.12.0
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://www.freedesktop.org/software/libinput/%{name}-%{version}.tar.xz
-# Source0-md5:	05f7d54380ff033d421944d906dc1ecb
+# Source0-md5:	cc1a8c710a90264d1464c81d657064d2
 URL:		http://www.freedesktop.org/wiki/Software/libinput/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -29,6 +29,15 @@ Requires:	%{name} = %{version}-%{release}
 %description devel
 Header files for libevdev library.
 
+%package -n udev-%{name}
+Summary:	udev rule for USB input device
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	udev
+
+%description -n udev-%{name}
+udev rule for USB input devices supported by libinput.
+
 %prep
 %setup -q
 
@@ -39,7 +48,8 @@ Header files for libevdev library.
 %{__automake}
 %configure \
 	--disable-silent-rules	\
-	--disable-static
+	--disable-static	\
+	--with-udev-dir=%{_prefix}/lib/udev
 %{__make}
 
 %install
@@ -59,7 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc COPYING
-%attr(755,root,root) %ghost %{_libdir}/libinput.so.7
+%attr(755,root,root) %ghost %{_libdir}/libinput.so.10
 %attr(755,root,root) %{_libdir}/libinput.so.*.*.*
 
 %files devel
@@ -67,4 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libinput.so
 %{_includedir}/libinput.h
 %{_pkgconfigdir}/libinput.pc
+
+%files -n udev-%{name}
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_prefix}/lib/udev/libinput-device-group
+%{_prefix}/lib/udev/rules.d/80-libinput-device-groups.rules
 
